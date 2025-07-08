@@ -1,12 +1,19 @@
 FROM kalilinux/kali-rolling:latest
+
 RUN apt-get update && \
-    apt-get install -y git python3-pip figlet sudo && \
-    apt-get install -y boxes php curl xdotool wget
+    apt-get install -y git python3-pip figlet sudo boxes php curl xdotool wget lolcat && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/hackingtool
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir boxes flask lolcat requests -r requirements.txt
+
+# Installer uniquement les paquets python
+RUN pip3 install --no-cache-dir -r requirements.txt flask requests
+
 COPY . .
-RUN true && echo "/root/hackingtool/" > /home/hackingtoolpath.txt;
+RUN echo "/root/hackingtool/" > /home/hackingtoolpath.txt
+
+# Expose tous les ports TCP (pas super recommandé, mais si c'est voulu)
 EXPOSE 1-65535
+
 ENTRYPOINT ["python3", "/root/hackingtool/hackingtool.py"]
