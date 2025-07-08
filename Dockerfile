@@ -8,7 +8,7 @@ WORKDIR /root/hackingtool
 
 COPY requirements.txt ./
 RUN cat requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt --verbose
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 COPY . .
 RUN echo "/root/hackingtool/" > /home/hackingtoolpath.txt
