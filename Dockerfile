@@ -5,15 +5,14 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/hackingtool
-COPY requirements.txt ./
 
-# Installer uniquement les paquets python
-RUN pip3 install --no-cache-dir -r requirements.txt
+COPY requirements.txt ./
+RUN cat requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt --verbose
 
 COPY . .
 RUN echo "/root/hackingtool/" > /home/hackingtoolpath.txt
 
-# Expose tous les ports TCP (pas super recommandé, mais si c'est voulu)
 EXPOSE 1-65535
 
 ENTRYPOINT ["python3", "/root/hackingtool/hackingtool.py"]
