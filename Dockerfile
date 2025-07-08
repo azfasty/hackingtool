@@ -8,7 +8,7 @@ WORKDIR /root/hackingtool
 COPY requirements.txt ./
 
 # Installer uniquement les paquets python
-RUN pip3 install --no-cache-dir -r requirements.txt flask requests
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 RUN echo "/root/hackingtool/" > /home/hackingtoolpath.txt
